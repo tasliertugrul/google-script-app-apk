@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new WebViewClient());
         
         // BURAYA KENDİ GOOGLE SCRIPT LİNKİNİ YAPIŞTIRACAĞIZ
-        webView.loadUrl("https://script.google.com/macros/s/SENIN_KODUN/exec");
+        webView.loadUrl("https://developers.google.com/apps-script?hl=tr/macros/s/SENIN_KODUN/exec");
         setContentView(webView);
     }
 }
