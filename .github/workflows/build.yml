@@ -29,12 +29,19 @@ jobs:
         curl -L -o gradlew.bat https://raw.githubusercontent.com/gradle/gradle/master/gradlew.bat
         mkdir -p gradle/wrapper
         curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar
-        # GRADLE 8.0 SÜRÜMÜNÜ DOĞRUDAN İNDİRİYORUZ
-        curl -L -o gradle/wrapper/gradle-wrapper.properties https://services.gradle.org/distributions/gradle-8.0-bin.zip
-        chmod +x gradlew
-        # İndirdiğimiz zip dosyasını açıp wrapper klasörüne yerleştiriyoruz
+        
+        # DÜZELTME BURADA: Zip dosyasını doğru isimle indiriyoruz
+        curl -L -o gradle-8.0-bin.zip https://services.gradle.org/distributions/gradle-8.0-bin.zip
         unzip -o gradle-8.0-bin.zip -d gradle/
-        mv gradle/gradle-8.0 gradle/wrapper/gradle-8.0
+        
+        # Gradle'ın çalışması için gerekli properties dosyasını oluşturuyoruz
+        echo "distributionBase=GRADLE_USER_HOME" > gradle/wrapper/gradle-wrapper.properties
+        echo "distributionPath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+        echo "distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip" >> gradle/wrapper/gradle-wrapper.properties
+        echo "zipStoreBase=GRADLE_USER_HOME" >> gradle/wrapper/gradle-wrapper.properties
+        echo "zipStorePath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+        
+        chmod +x gradlew
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
