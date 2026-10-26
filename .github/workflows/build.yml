@@ -29,9 +29,12 @@ jobs:
         curl -L -o gradlew.bat https://raw.githubusercontent.com/gradle/gradle/master/gradlew.bat
         mkdir -p gradle/wrapper
         curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar
-        # BURAYI DEĞİŞTİRDİK: gradle-8.0 sürümünü indir
-        curl -L -o gradle/wrapper/gradle-wrapper.properties https://raw.githubusercontent.com/gradle/gradle/v8.0.0/gradle/wrapper/gradle-wrapper.properties
+        # GRADLE 8.0 SÜRÜMÜNÜ DOĞRUDAN İNDİRİYORUZ
+        curl -L -o gradle/wrapper/gradle-wrapper.properties https://services.gradle.org/distributions/gradle-8.0-bin.zip
         chmod +x gradlew
+        # İndirdiğimiz zip dosyasını açıp wrapper klasörüne yerleştiriyoruz
+        unzip -o gradle-8.0-bin.zip -d gradle/
+        mv gradle/gradle-8.0 gradle/wrapper/gradle-8.0
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
